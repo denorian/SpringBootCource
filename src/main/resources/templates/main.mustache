@@ -5,24 +5,32 @@
     <title>Main</title>
 </head>
 <body>
-    <div>
-        <form method="post">
-            <input type="text" name="text" placeholder="введите текст">
-            <input type="text" name="tag" placeholder="тэг">
-            <button type="submit">добавить</button>
-        </form>
-    </div>
-    <div>Список сообщений</div>
-    <form method="post" action="/filter">
-        <input type="text" name="filter" placeholder="введите текст">
-        <button type="submit">Найти</button>
+<div>
+    <form action="/logout" method="post">
+        <input type="submit" value="Sign Out"/>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
     </form>
-    {{#messages}}
-        <div>
-            <b>{{id}}</b>
-            <span>{{text}}</span>
-            <i>{{tag}}</i>
-        </div>
-    {{/messages}}
+</div>
+<div>
+    <form method="post">
+        <input type="text" name="text" placeholder="введите текст">
+        <input type="text" name="tag" placeholder="тэг">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        <button type="submit">добавить</button>
+    </form>
+</div>
+<div>Список сообщений</div>
+<form method="post" action="/filter">
+    <input type="text" name="filter" placeholder="введите текст">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+    <button type="submit">Найти</button>
+</form>
+{{#messages}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{text}}</span>
+        <i>{{tag}}</i>
+    </div>
+{{/messages}}
 </body>
 </html>
