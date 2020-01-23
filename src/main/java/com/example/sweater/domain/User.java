@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -32,6 +34,25 @@ public class User implements UserDetails {
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
 	@Enumerated(EnumType.STRING)
 	private Set<Role> roles;
+	
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Message> messages;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "user_subscribtion",
+			joinColumns = {@JoinColumn(name = "channel_id")},
+			inverseJoinColumns = {@JoinColumn(name = "subscriber_id")}
+	)
+	private Set<User> subscribers = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(
+			name = "user_subscribtion",
+			joinColumns = {@JoinColumn(name = "subscriber_id")},
+			inverseJoinColumns = {@JoinColumn(name = "channel_id")}
+	)
+	private Set<User> subscruptions = new HashSet<>();
 	
 	public Long getId() {
 		return id;
@@ -98,7 +119,7 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 	
-	public boolean isAdmin(){
+	public boolean isAdmin() {
 		return roles.contains(Role.ADMIN);
 	}
 	
@@ -116,5 +137,43 @@ public class User implements UserDetails {
 	
 	public void setActivationCode(String activationCode) {
 		this.activationCode = activationCode;
+	}
+	
+	public Set<Message> getMessages() {
+		return messages;
+	}
+	
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return id.equals(user.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	
+	
+	public Set<User> getSubscribers() {
+		return subscribers;
+	}
+	
+	public void setSubscribers(Set<User> subscribers) {
+		this.subscribers = subscribers;
+	}
+	
+	public Set<User> getSubscruptions() {
+		return subscruptions;
+	}
+	
+	public void setSubscruptions(Set<User> subscruptions) {
+		this.subscruptions = subscruptions;
 	}
 }
