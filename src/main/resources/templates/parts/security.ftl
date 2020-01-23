@@ -12,7 +12,7 @@
 	>
 <#else>
     <#assign
-    name = "unknown"
+    name = "please, log in."
     isAdmin = false
     isAutorized = false
     currentUserId = -1

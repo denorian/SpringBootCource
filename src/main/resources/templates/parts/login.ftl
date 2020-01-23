@@ -5,8 +5,7 @@
 			<div class="col-sm-10">
 				<input type="text" name="username" class="form-control ${(usernameError??)?string('is-invalid','')}"
 					   placeholder="username"
-					   value="<#if user??>${user.username}"</#if>"
-				/>
+					   value="<#if user??>${user.username}"</#if>"/>
                 <#if usernameError??>
 					<div class="invalid-feedback">
                         ${usernameError}
@@ -64,13 +63,14 @@
         </#if>
 		<input type="hidden" name="_csrf" value="${_csrf.token}">
         <#if isRegisterForm><a href="/registration">Registration</a></#if>
-		<button class="btn btn-primary mb-2" type="submit"><#if isRegisterForm>Sign In<#else>Create</#if></button>
+		<button class="btn btn-primary mb-2" type="submit"><#if isRegisterForm>Log In<#else>Create</#if></button>
 	</form>
 </#macro>
 <#macro logout>
+    <#include "security.ftl" >
 	<div>
 		<form action="/logout" method="post">
-			<button class="btn btn-primary mb-2" type="submit">Sign Out</button>
+			<button class="btn btn-primary mb-2" type="submit"><#if user??>Sign Out<#else>Log in</#if></button>
 			<input type="hidden" name="_csrf" value="${_csrf.token}">
 		</form>
 	</div>

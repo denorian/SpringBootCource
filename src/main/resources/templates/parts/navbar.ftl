@@ -28,10 +28,6 @@
 			</#if>
 		</ul>
 	</div>
-    <#if isAutorized>
 	<div class="navbar-text mr-3">${name}</div>
     <@l.logout />
-	<#else>
-		<a href="/login" class="btn btn-primary mb-2">Sing in</a>
-	</#if>
 </nav>
