@@ -24,7 +24,7 @@
 					   name="tag"
 					   class="form-control ${(tagError??)?string('is-invalid','')}"
 					   placeholder="Tags"
-					   value="<#if message??>${message.tag}"</#if>>
+					   value="<#if message??>${message.tag}</#if>" />
 				<#if tagError??>
 					<div class="invalid-feedback">
 						${tagError}
@@ -32,7 +32,7 @@
 				</#if>
 			</div>
 			<div class="custom-file">
-				<input type="file" name="file" class="custom-file-input" id="customFile">
+				<input type="file" name="file" class="custom-file-input" id="customFile" />
 				<label class="custom-file-label" for="customFile">Choose file</label>
 			</div>
 			<input type="hidden" name="id" value="<#if message??>${message.id}</#if>"/>

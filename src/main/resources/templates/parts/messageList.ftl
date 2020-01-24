@@ -1,12 +1,12 @@
 <#include "security.ftl">
-<div class="card-columns">
+<div class="card-columns" id="message-list">
     <#list messages as message>
-		<div class="card my-3" style="width: 18rem;">
+		<div class="card my-3" style="width: 18rem;" data-id="${message.id}">
             <#if message.filename??>
 				<img src="/img/${message.filename}" class="card-img-top">
             </#if>
 			<div class="card-body m-2">
-				<span class="card-text">${message.text}</span><br>
+				<span class="card-text">${message.text}</span><br/>
 				<i>#${message.tag}</i>
 			</div>
 			<div class="card-footer text-muted">
