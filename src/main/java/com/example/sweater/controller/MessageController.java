@@ -99,11 +99,18 @@ public class MessageController {
 				uploadDir.mkdir();
 			}
 			String uuidFile = UUID.randomUUID().toString();
+			String subdir = uuidFile.substring(0, 3) + "/";
+			
+			File relativeUploadDir = new File(uploadPath + "/" + subdir);
+			
+			if (!relativeUploadDir.exists()) {
+				relativeUploadDir.mkdir();
+			}
+			
 			String resultNameFile = uuidFile + '.' + file.getOriginalFilename();
+			file.transferTo(new File(relativeUploadDir + "/" + resultNameFile));
 			
-			file.transferTo(new File(uploadPath + "/" + resultNameFile));
-			
-			message.setFilename(resultNameFile);
+			message.setFilename(subdir + resultNameFile);
 		}
 	}
 	
@@ -164,9 +171,9 @@ public class MessageController {
 	) {
 		Set<User> likes = message.getLikes();
 		
-		if(likes.contains(currentUser)){
+		if (likes.contains(currentUser)) {
 			likes.remove(currentUser);
-		}else {
+		} else {
 			likes.add(currentUser);
 		}
 		
