@@ -1,5 +1,5 @@
 <#macro  pager url page>
-	<#if page.getTotalPages() gt 7>
+    <#if page.getTotalPages() gt 7>
         <#assign
         totalPages = page.getTotalPages()
         pageNumber = page.getNumber() + 1
@@ -11,48 +11,47 @@
 
         body = head + bodyBefore + (pageNumber > 3 && pageNumber < totalPages - 2)?then([pageNumber], []) + bodyAfter + tail
         >
-	<#else>
+    <#else>
         <#assign body = 1 ..page.getTotalPages()>
     </#if>
-		<nav aria-label="..." class="mt-3">
-			<ul class="pagination">
+	<div class="container mt-3">
+		<div class="row">
+			<ul class="pagination col justify-content-center">
 				<li class="page-item disabled">
 					<a class="page-link" tabindex="-1">Pages</a>
 				</li>
-				<#list body as p>
-					<#if (p - 1) == page.getNumber()>
+                <#list body as p>
+                    <#if (p - 1) == page.getNumber()>
 						<li class="page-item active">
 							<a class="page-link" href="${url}?page=${p - 1}&size=${page.getSize()}">${p}</a>
 						</li>
-					<#elseif (p  == -1)>
+                    <#elseif (p  == -1)>
 						<li class="page-item disable">
 							<a class="page-link">...</a>
 						</li>
-					<#else>
+                    <#else>
 						<li class="page-item">
 							<a class="page-link" href="${url}?page=${p - 1}&size=${page.getSize()}">${p}</a>
 						</li>
-					</#if>
-				</#list>
+                    </#if>
+                </#list>
 			</ul>
-		</nav>
-		<nav aria-label="..." class="mt-3">
-			<ul class="pagination">
+			<ul class="pagination col justify-content-center">
 				<li class="page-item disabled">
 					<a class="page-link" tabindex="-1">Elements on page</a>
 				</li>
-				<#list [5, 10, 25, 50] as c>
-					<#if c == page.getSize()>
+                <#list [5, 10, 25, 50] as c>
+                    <#if c == page.getSize()>
 						<li class="page-item active">
 							<a class="page-link">${c}</a>
 						</li>
-					<#else>
+                    <#else>
 						<li class="page-item">
 							<a class="page-link" href="${url}?page=${page.getNumber()}&size=${c}">${c}</a>
 						</li>
-					</#if>
-				</#list>
+                    </#if>
+                </#list>
 			</ul>
-		</nav>
-
+		</div>
+	</div>
 </#macro>
